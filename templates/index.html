@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .output {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-top: 30px;
+            background-color: #f9f9f9;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+        }
+        h2 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Generate a Post</h1>
+    <form method="POST" action="/">
+        <label for="topic">Topic:</label>
+        <input type="text" id="topic" name="topic" required>
+
+        <label for="audience">Audience:</label>
+        <input type="text" id="audience" name="audience" required>
+
+        <label for="style">Style:</label>
+        <select id="style" name="style" required>
+            <option value="1">Easy to read</option>
+            <option value="2">Exciting read</option>
+            <option value="3">Technical read</option>
+            <option value="4">Marketing purpose</option>
+            <option value="5">Upskilling</option>
+        </select>
+
+        <button type="submit">Generate Post</button>
+    </form>
+
+    {% if output %}
+    <div class="output">
+        <h2>Generated Post</h2>
+        <!-- Render the HTML post content safely so that it is formatted as HTML -->
+        <div>{{ output.post | safe }}</div>
+        <hr>
+        <p><strong>Topic:</strong> {{ output.topic }}</p>
+        <p><strong>Audience:</strong> {{ output.audience }}</p>
+        <p><strong>Style:</strong> {{ output.style }}</p>
+        <p><strong>Input Tokens:</strong> {{ output["input token used"] }}</p>
+        <p><strong>Output Tokens:</strong> {{ output["output token used"] }}</p>
+        <p><strong>Inference Time:</strong> {{ output["inference time"] | round(2) }} seconds</p>
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>
